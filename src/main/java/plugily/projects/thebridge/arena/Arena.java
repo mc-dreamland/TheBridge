@@ -267,12 +267,8 @@ public class Arena extends PluginArena {
     }
     resetHits();
     for(Player player : getPlayersLeft()) {
-      VersionUtils.teleport(player, getBase(player).getPlayerSpawnPoint());
       new MessageBuilder("IN_GAME_MESSAGES_ARENA_BLOCKED_RESET").asKey().arena(this).player(player).sendPlayer();
       plugin.getUserManager().addExperience(player, 2);
-      resetPlayer(player);
-      plugin.getUserManager().getUser(player).getKit().giveKitItems(player);
-      player.updateInventory();
     }
     plugin.getRewardsHandler().performReward(this, plugin.getRewardsHandler().getRewardType("RESET_ROUND"));
     plugin.getPowerupRegistry().spawnPowerup(getMidLocation(), this);

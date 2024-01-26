@@ -311,6 +311,12 @@ public class ArenaEvents extends PluginArenaEvents {
     } else if(arena.getMode() == Arena.Mode.POINTS) {
       arena.getBase(player).addPoint();
     }
+
+    VersionUtils.teleport(player, arena.getBase(player).getPlayerSpawnPoint());
+    arena.resetPlayer(player);
+    plugin.getUserManager().getUser(player).getKit().giveKitItems(player);
+
+    player.updateInventory();
     new TitleBuilder("IN_GAME_MESSAGES_ARENA_PORTAL_SCORED_TITLE")
       .asKey()
       .arena(arena)
