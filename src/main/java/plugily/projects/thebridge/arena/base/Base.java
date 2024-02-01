@@ -156,6 +156,10 @@ public class Base {
       new MessageBuilder("BASES_TEAM_FULL").asKey().player(player).sendPlayer();
       return false;
     }
+    if(plugin.getUserManager().getUser(player) == null || plugin.getUserManager().getUser(player).isSpectator()) {
+      new MessageBuilder("BASES_TEAM_FULL").asKey().player(player).sendPlayer();
+      return false;
+    }
     if(plugin.getArenaRegistry().getArena(player).inBase(player)) {
       plugin.getArenaRegistry().getArena(player).getBase(player).removePlayer(player);
     }

@@ -257,6 +257,9 @@ public class ArenaEvents extends PluginArenaEvents {
     if(arena.getArenaState() != ArenaState.IN_GAME) {
       return;
     }
+    if (plugin.getUserManager().getUser(player) == null || plugin.getUserManager().getUser(player).isSpectator()){
+      return;
+    }
     if(arena.isResetRound() && !plugin.getUserManager().getUser(player).isSpectator()) {
       roundReset(event, arena);
       return;
