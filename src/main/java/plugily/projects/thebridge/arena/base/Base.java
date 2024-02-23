@@ -32,6 +32,7 @@ import plugily.projects.minigamesbox.classic.utils.dimensional.Cuboid;
 import plugily.projects.minigamesbox.classic.utils.hologram.ArmorStandHologram;
 import plugily.projects.minigamesbox.classic.utils.version.xseries.XMaterial;
 import plugily.projects.thebridge.Main;
+import plugily.projects.thebridge.arena.Arena;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,6 +159,7 @@ public class Base {
     }
     if(plugin.getUserManager().getUser(player) == null || plugin.getUserManager().getUser(player).isSpectator()) {
       new MessageBuilder("BASES_TEAM_FULL").asKey().player(player).sendPlayer();
+      player.performCommand("aagain");
       return false;
     }
     if(plugin.getArenaRegistry().getArena(player).inBase(player)) {

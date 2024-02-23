@@ -50,7 +50,7 @@ public class PluginEvents implements Listener {
     plugin.getServer().getPluginManager().registerEvents(this, plugin);
   }
 
-  @EventHandler
+  @EventHandler(ignoreCancelled = true)
   public void onDrop(PlayerDropItemEvent event) {
     if (plugin.getArenaRegistry().isInArena(event.getPlayer())) {
       event.setCancelled(true);
@@ -71,7 +71,7 @@ public class PluginEvents implements Listener {
     }
   }
 
-  @EventHandler(priority = EventPriority.HIGH)
+  @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
   // highest priority to fully protect our game
   public void onBlockBreakEvent(BlockBreakEvent event) {
     if (plugin.getArenaRegistry().isInArena(event.getPlayer())
@@ -81,7 +81,7 @@ public class PluginEvents implements Listener {
     }
   }
 
-  @EventHandler(priority = EventPriority.HIGH)
+  @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
   // highest priority to fully protect our game
   public void onBuild(BlockPlaceEvent event) {
     if (plugin.getArenaRegistry().isInArena(event.getPlayer())

@@ -60,7 +60,7 @@ public class Arena extends PluginArena {
   private final List<Player> deaths = new ArrayList<>();
   private List<Base> bases = new ArrayList<>();
   private Mode mode;
-  private final ArrayList<Block> placedBlocks = new ArrayList<>();
+  private final HashSet<Block> placedBlocks = new HashSet<>();
 
   private List<Cuboid> bridgeCuboid;
   private final HashMap<Location, Material> brokenBlocks = new HashMap<>();
@@ -317,7 +317,7 @@ public class Arena extends PluginArena {
     hits.clear();
   }
 
-  public ArrayList<Block> getPlacedBlocks() {
+  public HashSet<Block> getPlacedBlocks() {
     return placedBlocks;
   }
 
@@ -364,10 +364,10 @@ public class Arena extends PluginArena {
   }
 
   public void teleportAllToBaseLocation() {
-    for(Player player : getPlayers()) {
-      Base base = getBase(player);
-      if (base == null) continue;
-      VersionUtils.teleport(player, base.getPlayerSpawnPoint());
+    for (Base base : bases) {
+        for (Player player : base.getPlayers()){
+          VersionUtils.teleport(player, base.getPlayerSpawnPoint());
+        }
     }
   }
 

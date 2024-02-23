@@ -23,6 +23,7 @@ import plugily.projects.minigamesbox.classic.arena.PluginArena;
 import plugily.projects.minigamesbox.classic.arena.states.PluginStartingState;
 import plugily.projects.minigamesbox.classic.user.User;
 import plugily.projects.thebridge.arena.Arena;
+import plugily.projects.thebridge.arena.ArenaEvents;
 import plugily.projects.thebridge.arena.base.Base;
 
 import java.util.Comparator;
@@ -50,6 +51,7 @@ public class StartingState extends PluginStartingState {
     if(arena.getTimer() == 0 || arena.isForceStart()) {
       arenaStart = true;
       for(Player player : arena.getPlayers()) {
+
         User user = arena.getPlugin().getUserManager().getUser(player);
         user.resetNonePersistentStatistics();
         // get base with min players
@@ -64,6 +66,7 @@ public class StartingState extends PluginStartingState {
           pluginArena.getBases().get(0).addPlayer(player);
         }
         getPlugin().getUserManager().addExperience(player, 10);
+        ArenaEvents.addPortalCooldown(player);
       }
       // check if not only one base got players
       Base maxPlayers =
