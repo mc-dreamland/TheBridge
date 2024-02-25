@@ -26,6 +26,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import plugily.projects.minigamesbox.classic.arena.ArenaState;
 import plugily.projects.minigamesbox.classic.handlers.items.SpecialItem;
 import plugily.projects.minigamesbox.classic.handlers.language.MessageBuilder;
 import plugily.projects.minigamesbox.classic.utils.helper.ItemBuilder;
@@ -103,6 +104,7 @@ public class BaseMenuHandler implements Listener {
               || !(event.isLeftClick() || event.isRightClick())) {
               return;
             }
+            if (arena.getArenaState() == ArenaState.IN_GAME) return;
             TBPlayerChooseBaseEvent chooseBaseEvent = new TBPlayerChooseBaseEvent(player, base, arena);
             Bukkit.getPluginManager().callEvent(chooseBaseEvent);
             if(chooseBaseEvent.isCancelled()) {
@@ -130,7 +132,7 @@ public class BaseMenuHandler implements Listener {
       return;
     }
     Arena arena = plugin.getArenaRegistry().getArena(event.getPlayer());
-    if(arena == null) {
+    if(arena == null || arena.getArenaState() == ArenaState.IN_GAME) {
       return;
     }
     event.setCancelled(true);
