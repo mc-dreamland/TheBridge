@@ -22,6 +22,7 @@ import org.bukkit.entity.Player;
 import plugily.projects.minigamesbox.classic.arena.PluginArena;
 import plugily.projects.minigamesbox.classic.arena.states.PluginStartingState;
 import plugily.projects.minigamesbox.classic.user.User;
+import plugily.projects.minigamesbox.classic.utils.version.VersionUtils;
 import plugily.projects.thebridge.arena.Arena;
 import plugily.projects.thebridge.arena.ArenaEvents;
 import plugily.projects.thebridge.arena.base.Base;
@@ -67,6 +68,7 @@ public class StartingState extends PluginStartingState {
         }
         getPlugin().getUserManager().addExperience(player, 10);
         ArenaEvents.addPortalCooldown(player);
+        VersionUtils.setCollidable(player, false);
       }
       // check if not only one base got players
       Base maxPlayers =
