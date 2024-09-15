@@ -18,10 +18,14 @@
 
 package plugily.projects.thebridge.arena.states;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 import plugily.projects.minigamesbox.api.user.IUser;
 import plugily.projects.minigamesbox.classic.arena.PluginArena;
 import plugily.projects.minigamesbox.classic.arena.states.PluginStartingState;
+import plugily.projects.minigamesbox.classic.utils.scoreboard.ScoreboardLib;
 import plugily.projects.thebridge.arena.Arena;
 import plugily.projects.thebridge.arena.base.Base;
 
@@ -86,6 +90,19 @@ public class StartingState extends PluginStartingState {
       for (Base base : pluginArena.getBases()) {
         base.addCage();
       }
+      // scoreboard: start
+      for (Player player : pluginArena.getPlayers()){
+        Scoreboard scoreboard = player.getScoreboard();
+        for (Base scoreboardBase : pluginArena.getBases()){
+          Team team = scoreboard.registerNewTeam(scoreboardBase.getFormattedColor());
+          team.setOption(Team.Option.COLLISION_RULE, Team.OptionStatus.NEVER);
+          for (Player toAddPlayer : scoreboardBase.getPlayers()){
+            team.addEntry(toAddPlayer.getName());
+          }
+          team.setColor(ChatColor.valueOf(scoreboardBase.getColor()));
+        }
+      }
+      // scoreboard: end
     }
   }
 }

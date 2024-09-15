@@ -110,6 +110,9 @@ public class ScoreboardManager extends PluginScoreboardManager {
           "%scoreboard_base_yourself%",
           new MessageBuilder("SCOREBOARD_BASES_NOT_INSIDE").asKey().build());
     }
+    if (formattedLine.contains("%scoreboard_base_points%")) {
+      formattedLine = formattedLine.replaceAll("%scoreboard_base_points%", String.valueOf(base.getPoints()));
+    }
     if(formattedLine.contains("%scoreboard_base_points_formatted%")) {
       StringBuilder points = new StringBuilder();
       String got =
