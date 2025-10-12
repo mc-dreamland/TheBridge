@@ -23,7 +23,6 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -268,12 +267,8 @@ public class Arena extends PluginArena {
     }
     resetHits();
     for(Player player : getPlayersLeft()) {
-      VersionUtils.teleport(player, getBase(player).getPlayerSpawnPoint());
       new MessageBuilder("IN_GAME_MESSAGES_ARENA_BLOCKED_RESET").asKey().arena(this).player(player).sendPlayer();
       plugin.getUserManager().addExperience(player, 2);
-      resetPlayer(player);
-      plugin.getUserManager().getUser(player).getKit().giveKitItems(player);
-      player.updateInventory();
     }
     plugin.getRewardsHandler().performReward(this, plugin.getRewardsHandler().getRewardType("RESET_ROUND"));
     plugin.getPowerupRegistry().spawnPowerup(getMidLocation(), this);
@@ -371,7 +366,9 @@ public class Arena extends PluginArena {
 
   public void teleportAllToBaseLocation() {
     for(Player player : getPlayers()) {
-      VersionUtils.teleport(player, getBase(player).getPlayerSpawnPoint());
+      player.setNoDamageTicks(20);
+      Base base = getBase(player);
+      VersionUtils.teleport(player, base != null ? base.getPlayerSpawnPoint() : getSpectatorLocation());
     }
   }
 

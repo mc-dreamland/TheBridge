@@ -44,6 +44,7 @@ import plugily.projects.minigamesbox.classic.utils.dimensional.Cuboid;
 import plugily.projects.minigamesbox.classic.utils.version.VersionUtils;
 import plugily.projects.minigamesbox.classic.utils.version.events.api.PlugilyEntityPickupItemEvent;
 import plugily.projects.minigamesbox.classic.utils.version.events.api.PlugilyPlayerPickupArrow;
+import plugily.projects.minigamesbox.classic.utils.version.events.api.PlugilyPlayerSwapHandItemsEvent;
 import plugily.projects.minigamesbox.classic.utils.version.xseries.XMaterial;
 import plugily.projects.minigamesbox.classic.utils.version.xseries.XSound;
 import plugily.projects.thebridge.Main;
@@ -256,7 +257,10 @@ public class ArenaEvents extends PluginArenaEvents {
     if(arena.getArenaState() != IArenaState.IN_GAME) {
       return;
     }
-    if(arena.isResetRound() && !plugin.getUserManager().getUser(player).isSpectator()) {
+    if (plugin.getUserManager().getUser(player).isSpectator()){
+      return;
+    }
+    if(arena.isResetRound()) {
       roundReset(event, arena);
       return;
     }

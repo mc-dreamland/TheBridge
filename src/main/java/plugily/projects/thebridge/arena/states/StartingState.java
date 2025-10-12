@@ -86,7 +86,6 @@ public class StartingState extends PluginStartingState {
     super.handleCall(arena);
     if(arenaStart) {
       //needs to be executed after handle call as start location does not exist on thebridge
-      pluginArena.teleportAllToBaseLocation();
       for (Base base : pluginArena.getBases()) {
         base.addCage();
       }
@@ -103,6 +102,7 @@ public class StartingState extends PluginStartingState {
         }
       }
       // scoreboard: end
+      pluginArena.teleportAllToBaseLocation();
     }
   }
 }
