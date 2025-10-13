@@ -315,7 +315,7 @@ public class ArenaEvents extends PluginArenaEvents {
       arena.getBase(player).addPoint();
     }
 
-    VersionUtils.teleport(player, base.getPlayerSpawnPoint());
+    VersionUtils.teleport(player, arena.getBase(player).getPlayerSpawnPoint());
     arena.resetPlayer(player);
     plugin.getUserManager().getUser(player).getKit().giveKitItems(player);
     player.updateInventory();
