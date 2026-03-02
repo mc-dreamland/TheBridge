@@ -366,6 +366,7 @@ public class Arena extends PluginArena {
 
   public void teleportAllToBaseLocation() {
     for(Player player : getPlayers()) {
+      player.setFallDistance(0f);
       player.setNoDamageTicks(20);
       Base base = getBase(player);
       VersionUtils.teleport(player, base != null ? base.getPlayerSpawnPoint() : getSpectatorLocation());
