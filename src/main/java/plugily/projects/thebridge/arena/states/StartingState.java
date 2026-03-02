@@ -25,7 +25,6 @@ import org.bukkit.scoreboard.Team;
 import plugily.projects.minigamesbox.api.user.IUser;
 import plugily.projects.minigamesbox.classic.arena.PluginArena;
 import plugily.projects.minigamesbox.classic.arena.states.PluginStartingState;
-import plugily.projects.minigamesbox.classic.utils.scoreboard.ScoreboardLib;
 import plugily.projects.thebridge.arena.Arena;
 import plugily.projects.thebridge.arena.base.Base;
 

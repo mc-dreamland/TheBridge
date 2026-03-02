@@ -44,7 +44,6 @@ import plugily.projects.minigamesbox.classic.utils.dimensional.Cuboid;
 import plugily.projects.minigamesbox.classic.utils.version.VersionUtils;
 import plugily.projects.minigamesbox.classic.utils.version.events.api.PlugilyEntityPickupItemEvent;
 import plugily.projects.minigamesbox.classic.utils.version.events.api.PlugilyPlayerPickupArrow;
-import plugily.projects.minigamesbox.classic.utils.version.events.api.PlugilyPlayerSwapHandItemsEvent;
 import plugily.projects.minigamesbox.classic.utils.version.xseries.XMaterial;
 import plugily.projects.minigamesbox.classic.utils.version.xseries.XSound;
 import plugily.projects.thebridge.Main;
@@ -52,6 +51,7 @@ import plugily.projects.thebridge.arena.base.Base;
 import plugily.projects.thebridge.arena.managers.ScoreboardManager;
 
 import java.text.DecimalFormat;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
@@ -530,11 +530,9 @@ public class ArenaEvents extends PluginArenaEvents {
         cooldown = Math.max(0, (int) user.getKit().getOptionalConfiguration("bow-cooldown"));
       }
       if(cooldown != 0) {
-        user.setCooldown("bow_shot", cooldown);
+        user.setCooldown("bow_shot", Duration.ofSeconds(cooldown));
         Player player = (Player) event.getEntity();
-        plugin
-          .getBukkitHelper()
-          .applyActionBarCooldown(player, cooldown);
+        player.setCooldown(event.getBow().getType(), cooldown * 20);
       }
       if(event.getBow() != null) {
         VersionUtils.setDurability(event.getBow(), (short) 0);
