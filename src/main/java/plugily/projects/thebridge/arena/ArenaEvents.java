@@ -49,7 +49,7 @@ import plugily.projects.minigamesbox.classic.utils.version.xseries.XSound;
 import plugily.projects.thebridge.Main;
 import plugily.projects.thebridge.arena.base.Base;
 import plugily.projects.thebridge.arena.managers.ScoreboardManager;
-import plugily.projects.thebridge.events.BridgePortalScoredEvent;
+import plugily.projects.thebridge.api.events.player.TBPlayerPortalScoredEvent;
 
 import java.text.DecimalFormat;
 import java.time.Duration;
@@ -309,7 +309,7 @@ public class ArenaEvents extends PluginArenaEvents {
   }
 
   private void portalScored(Player player, Arena arena, Base base) {
-    BridgePortalScoredEvent event = new BridgePortalScoredEvent(player, arena, base);
+    TBPlayerPortalScoredEvent event = new TBPlayerPortalScoredEvent(player, arena, base);
     Bukkit.getServer().getPluginManager().callEvent(event);
 
     arena.resetRound();
