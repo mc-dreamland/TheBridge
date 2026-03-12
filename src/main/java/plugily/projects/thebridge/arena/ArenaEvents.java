@@ -322,7 +322,6 @@ public class ArenaEvents extends PluginArenaEvents {
     VersionUtils.teleport(player, arena.getBase(player).getPlayerSpawnPoint());
     arena.resetPlayer(player);
     plugin.getUserManager().getUser(player).getKit().giveKitItems(player);
-    player.updateInventory();
 
     new TitleBuilder("IN_GAME_MESSAGES_ARENA_PORTAL_SCORED_TITLE")
       .asKey()
@@ -443,7 +442,6 @@ public class ArenaEvents extends PluginArenaEvents {
 
             rewardLastAttacker(arena, player);
             plugin.getUserManager().getUser(player).getKit().giveKitItems(player);
-            player.updateInventory();
           } else {
             Location spectatorLocation = arena.getSpectatorLocation();
             VersionUtils.teleport(player, spectatorLocation);

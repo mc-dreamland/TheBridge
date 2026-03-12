@@ -290,7 +290,6 @@ public class Arena extends PluginArena {
     player.setHealth(VersionUtils.getMaxHealth(player));
     player.setAllowFlight(false);
     player.setFlying(false);
-    player.updateInventory();
   }
 
   public int getRound() {
