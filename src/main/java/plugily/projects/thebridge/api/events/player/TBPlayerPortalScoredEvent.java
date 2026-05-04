@@ -9,7 +9,7 @@ import plugily.projects.thebridge.arena.base.Base;
 
 
 public class TBPlayerPortalScoredEvent extends PlayerEvent {
-  public static final HandlerList handler = new HandlerList();
+  public static final HandlerList handlers = new HandlerList();
   public final Arena arena;
   public final Base base;
 
@@ -22,6 +22,12 @@ public class TBPlayerPortalScoredEvent extends PlayerEvent {
   @NotNull
   @Override
   public HandlerList getHandlers() {
-    return handler;
+    return handlers;
   }
+
+  public static HandlerList getHandlerList(){
+    return handlers;
+  }
+
+
 }
