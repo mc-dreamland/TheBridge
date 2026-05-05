@@ -218,6 +218,13 @@ public class Base {
     this.armorStandHologram = armorStandHologram;
   }
 
+  public void removeArmorStandHologram() {
+    if(armorStandHologram != null && !armorStandHologram.isDeleted()) {
+      armorStandHologram.delete();
+    }
+    armorStandHologram = null;
+  }
+
   public Cuboid getCageCuboid() {
     return cageCuboid;
   }

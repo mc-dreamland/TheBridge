@@ -226,7 +226,10 @@ public class Arena extends PluginArena {
   }
 
   public void cleanUpArena() {
-    getBases().forEach(Base::reset);
+    getBases().forEach(base -> {
+      base.reset();
+      base.removeArmorStandHologram();
+    });
     resetPlacedBlocks();
     resetBrokenBlocks();
     resetHits();
