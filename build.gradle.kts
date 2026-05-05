@@ -1,7 +1,7 @@
 plugins {
     id("signing")
     `maven-publish`
-    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("com.gradleup.shadow") version "8.3.0"
     java
 }
 
@@ -24,7 +24,7 @@ repositories {
 }
 
 dependencies {
-    implementation("plugily.projects:minigamesbox:1.4.3:SNAPSHOT20") { isTransitive = false }
+    implementation("plugily.projects:minigamesbox:1.4.3:SNAPSHOT33") { isTransitive = false }
     compileOnly("org.spigotmc:spigot-api:1.20.4-R0.1-SNAPSHOT")
     compileOnly("io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT")
     compileOnly("org.jetbrains:annotations:24.0.1")
