@@ -53,7 +53,6 @@ import plugily.projects.thebridge.api.events.player.TBPlayerPortalScoredEvent;
 
 import java.text.DecimalFormat;
 import java.time.Duration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.stream.Collectors;
@@ -245,8 +244,8 @@ public class ArenaEvents extends PluginArenaEvents {
     }
   }
 
-  private final HashMap<Player, Long> cooldownPortal = new HashMap<>();
-  private final HashMap<Player, Long> cooldownOutside = new HashMap<>();
+  private static final String COOLDOWN_PORTAL = "portal";
+  private static final String COOLDOWN_OUTSIDE = "outside";
 
   @EventHandler(priority = EventPriority.HIGHEST)
   public void onPlayerMove(PlayerMoveEvent event) {
@@ -272,9 +271,8 @@ public class ArenaEvents extends PluginArenaEvents {
       outsideArenaBorder(player, arena);
       return;
     }
-    if(cooldownPortal.containsKey(player)) {
-      if(cooldownPortal.get(player) <= System.currentTimeMillis() - 5000)
-        cooldownPortal.remove(player);
+    IUser user = plugin.getUserManager().getUser(player);
+    if(user.getCooldown(COOLDOWN_PORTAL) != 0) {
       return;
     }
     if(arena.getBase(player).getPortalCuboid().isIn(player)) {
@@ -283,7 +281,7 @@ public class ArenaEvents extends PluginArenaEvents {
     }
     for(Base base : arena.getBases()) {
       if(base.getPortalCuboid().isIn(player)) {
-        cooldownPortal.put(player, System.currentTimeMillis());
+        user.setCooldown(COOLDOWN_PORTAL, Duration.ofSeconds(5));
         if(base.getPoints() >= arena.getArenaOption("MODE_VALUE")) {
           portalOut(player, arena);
           return;
@@ -354,7 +352,7 @@ public class ArenaEvents extends PluginArenaEvents {
   }
 
   private void insideOwnPortal(Player player, Arena arena) {
-    cooldownPortal.put(player, System.currentTimeMillis());
+    plugin.getUserManager().getUser(player).setCooldown(COOLDOWN_PORTAL, Duration.ofSeconds(5));
     new MessageBuilder("IN_GAME_MESSAGES_ARENA_PORTAL_OWN").asKey().player(player).sendPlayer();
     // prevent players being stuck on portal location
     Bukkit.getScheduler()
@@ -379,9 +377,7 @@ public class ArenaEvents extends PluginArenaEvents {
   }
 
   private void outsideArenaBorder(Player player, Arena arena) {
-    if(cooldownOutside.containsKey(player)
-      && cooldownOutside.get(player) <= System.currentTimeMillis() - 1500) {
-      cooldownOutside.remove(player);
+    if(plugin.getUserManager().getUser(player).getCooldown(COOLDOWN_OUTSIDE) != 0) {
       return;
     }
     playerDeath(player, arena);
@@ -435,7 +431,7 @@ public class ArenaEvents extends PluginArenaEvents {
             Location respawnPoint = arena.getBase(player).getPlayerRespawnPoint();
             VersionUtils.teleport(player, respawnPoint);
             modeDeathHandle(player, arena, user);
-            cooldownOutside.put(player, System.currentTimeMillis());
+            user.setCooldown(COOLDOWN_OUTSIDE, Duration.ofMillis(1500));
             plugin
               .getRewardsHandler()
               .performReward(player, plugin.getRewardsHandler().getRewardType("DEATH"));
