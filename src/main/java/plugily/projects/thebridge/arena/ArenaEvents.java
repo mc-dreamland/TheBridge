@@ -49,6 +49,7 @@ import plugily.projects.minigamesbox.classic.utils.version.xseries.XSound;
 import plugily.projects.thebridge.Main;
 import plugily.projects.thebridge.arena.base.Base;
 import plugily.projects.thebridge.arena.managers.ScoreboardManager;
+import plugily.projects.thebridge.api.events.player.TBPlayerKillEvent;
 import plugily.projects.thebridge.api.events.player.TBPlayerPortalScoredEvent;
 
 import java.text.DecimalFormat;
@@ -196,6 +197,7 @@ public class ArenaEvents extends PluginArenaEvents {
       plugin.getUserManager().addStat(attacker, plugin.getStatsStorage().getStatisticType("KILLS"));
       plugin.getUserManager().addExperience(attacker, 2);
       plugin.getUserManager().getUser(attacker).adjustStatistic("LOCAL_KILLS", 1);
+      Bukkit.getPluginManager().callEvent(new TBPlayerKillEvent(attacker, victim, arena));
       new MessageBuilder("IN_GAME_MESSAGES_ARENA_KILLED")
         .asKey()
         .player(victim)
