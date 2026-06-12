@@ -26,7 +26,8 @@ import plugily.projects.minigamesbox.classic.arena.PluginArenaManager;
 import plugily.projects.thebridge.Main;
 import plugily.projects.thebridge.arena.base.Base;
 
-import java.util.Comparator;
+import java.util.OptionalInt;
+import java.util.stream.Collectors;
 
 /**
  * @author Plajer
@@ -73,15 +74,14 @@ public class ArenaManager extends PluginArenaManager {
       pluginArena.removeDeathPlayer(player);
     }
     if(arena.getArenaState() != IArenaState.WAITING_FOR_PLAYERS
-      && arena.getArenaState() != IArenaState.STARTING
-      && (arena.getPlayers().size() <= 1
-      || (arena.getPlayers().size() <= arena.getArenaOption("BASE_PLAYER_SIZE")
-      && pluginArena.getBases().stream()
-      .max(Comparator.comparing(Base::getPlayersSize))
-      .get()
-      .getAlivePlayersSize()
-      == arena.getPlayers().size()))) {
-      stopGame(true, arena);
+      && arena.getArenaState() != IArenaState.STARTING) {
+      OptionalInt winnerBaseIndex = ArenaLeaveWinnerResolver.findWinnerBaseIndexAfterLeave(pluginArena.getBases().stream()
+        .map(Base::getPlayersSize)
+        .collect(Collectors.toList()), pluginArena.getBases().indexOf(base));
+      if(winnerBaseIndex.isPresent()) {
+        pluginArena.setWinner(pluginArena.getBases().get(winnerBaseIndex.getAsInt()));
+        stopGame(false, arena);
+      }
     }
   }
 
