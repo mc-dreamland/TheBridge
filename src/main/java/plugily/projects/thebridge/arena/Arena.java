@@ -43,6 +43,7 @@ import plugily.projects.thebridge.arena.states.InGameState;
 import plugily.projects.thebridge.arena.states.RestartingState;
 import plugily.projects.thebridge.arena.states.StartingState;
 
+import java.time.Duration;
 import java.util.*;
 
 /**
@@ -368,8 +369,7 @@ public class Arena extends PluginArena {
 
   public void teleportAllToBaseLocation() {
     for(Player player : getPlayers()) {
-      player.setFallDistance(0f);
-      player.setNoDamageTicks(20);
+      plugin.getUserManager().getUser(player).setCooldown("outside", Duration.ofSeconds(3));
       Base base = getBase(player);
       VersionUtils.teleport(player, base != null ? base.getPlayerSpawnPoint() : getSpectatorLocation());
     }
