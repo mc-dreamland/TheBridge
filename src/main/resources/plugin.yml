@@ -1,8 +1,8 @@
 name: TheBridge
 main: plugily.projects.thebridge.Main
 authors: [ PlugilyProjects, Tigerpanzer_02 ]
-version: ${version}
-softdepend: [ PlaceholderAPI, Parties, Spigot-Party-API-PAF, PartyAndFriends, ViaVersion, ProtocolSupport ]
+version: ${project.version}
+softdepend: [ PlaceholderAPI, Parties, Spigot-Party-API-PAF, PartyAndFriends, ViaVersion, ProtocolSupport, AReportHook ]
 api-version: 1.13
 
 commands:

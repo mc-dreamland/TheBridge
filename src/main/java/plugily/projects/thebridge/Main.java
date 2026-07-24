@@ -1,5 +1,6 @@
 package plugily.projects.thebridge;
 
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.TestOnly;
 import plugily.projects.minigamesbox.api.kit.IKit;
 import plugily.projects.minigamesbox.classic.PluginMain;
@@ -12,6 +13,7 @@ import plugily.projects.thebridge.boot.AdditionalValueInitializer;
 import plugily.projects.thebridge.boot.MessageInitializer;
 import plugily.projects.thebridge.boot.PlaceholderInitializer;
 import plugily.projects.thebridge.commands.arguments.ArgumentsRegistry;
+import plugily.projects.thebridge.events.AReportHook;
 import plugily.projects.thebridge.events.PluginEvents;
 import plugily.projects.thebridge.handlers.setup.SetupCategoryManager;
 import plugily.projects.thebridge.kits.KitUtils;
@@ -29,6 +31,7 @@ public class Main extends PluginMain {
   private ArenaManager arenaManager;
   private ArgumentsRegistry argumentsRegistry;
   private BaseMenuHandler baseMenuHandler;
+  private AReportHook aReportHook;
 
   @TestOnly
   public Main() {
@@ -46,6 +49,10 @@ public class Main extends PluginMain {
     new AdditionalValueInitializer(this);
     initializePluginClasses();
     addKits();
+    if (Bukkit.getPluginManager().isPluginEnabled("AReport")) {
+      aReportHook = new AReportHook();
+      aReportHook.load(this);
+    }
     getDebugger().debug("Full {0} plugin enabled", getName());
     getDebugger().debug("[System] [Plugin] Initialization finished took {0}ms", System.currentTimeMillis() - start);
   }
@@ -123,5 +130,9 @@ public class Main extends PluginMain {
   @Override
   public PluginSetupCategoryManager getSetupCategoryManager(SetupInventory setupInventory) {
     return new SetupCategoryManager(setupInventory);
+  }
+
+  public AReportHook getAReportHook() {
+    return aReportHook;
   }
 }
