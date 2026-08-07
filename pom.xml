@@ -94,6 +94,10 @@
 
     <repositories>
         <repository>
+            <id>bjd-mc</id>
+            <url>https://nexus.bjd-mc.com:8443/repository/maven-public/</url>
+        </repository>
+        <repository>
             <id>spigot-snapshots</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
@@ -105,24 +109,12 @@
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
-        <repository>
-            <id>plugily-auth</id>
-            <url>https://nexus.bjd-mc.com:8443/repository/maven-releases/</url>
-        </repository>
-        <repository>
-            <id>plugily-releases</id>
-            <url>https://maven.plugily.xyz/releases</url>
-        </repository>
-        <repository>
-            <id>plugily-snapshots</id>
-            <url>https://maven.plugily.xyz/snapshots</url>
-        </repository>
     </repositories>
     <dependencies>
         <dependency>
             <groupId>plugily.projects</groupId>
-            <artifactId>MiniGamesBox-Classic</artifactId>
-            <version>1.4.3-SNAPSHOT</version>
+            <artifactId>minigamesbox</artifactId>
+            <version>1.4.3</version>
             <exclusions>
                 <exclusion>
                     <groupId>*</groupId>
@@ -162,15 +154,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <distributionManagement>
-        <repository>
-            <id>plugily-auth</id>
-            <url>https://maven.plugily.xyz/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>plugily-auth</id>
-            <url>https://maven.plugily.xyz/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>
